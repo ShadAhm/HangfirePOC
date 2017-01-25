@@ -12,7 +12,8 @@ namespace HangfirePOC.Web.Controllers
         // GET: Work
         public ActionResult Index()
         {
-            BackgroundJob.Enqueue(() => Console.Write("Lock dog")); 
+            //BackgroundJob.Enqueue(() => Console.Write("Lock dog")); 
+            return View(); 
         }
     }
 }
