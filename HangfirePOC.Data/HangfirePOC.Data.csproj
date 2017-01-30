@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201701302112151_InitialDB.Designer.cs">
       <DependentUpon>201701302112151_InitialDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701302201124_RecurringScheduleType.cs" />
+    <Compile Include="Migrations\201701302201124_RecurringScheduleType.Designer.cs">
+      <DependentUpon>201701302201124_RecurringScheduleType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\OptimizationRequestRepository.cs" />
     <Compile Include="Repository\ActivityRepository.cs" />
@@ -78,6 +82,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701302112151_InitialDB.resx">
       <DependentUpon>201701302112151_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701302201124_RecurringScheduleType.resx">
+      <DependentUpon>201701302201124_RecurringScheduleType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

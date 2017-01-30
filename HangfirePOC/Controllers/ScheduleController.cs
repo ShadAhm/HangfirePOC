@@ -1,8 +1,10 @@
-﻿using HangfirePOC.Data;
+﻿using Hangfire;
+using HangfirePOC.Data;
 using HangfirePOC.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,9 +42,21 @@ namespace HangfirePOC.Controllers
             ViewBag.DelayType = new SelectList(
                 new List<object>
                 {
-                                new { Id = 1, Name = "Seconds" },
-                                new { Id = 2, Name = "Minutes" },
-                                new { Id = 3, Name = "Days" }
+                    new { Id = 1, Name = "Seconds" },
+                    new { Id = 2, Name = "Minutes" },
+                    new { Id = 3, Name = "Days" }
+                }
+                , "Id", "Name", "1");
+
+            ViewBag.RecurringScheduleType = new SelectList(
+                new List<object>
+                {
+                    new { Id = 1, Name = "Daily" },
+                    new { Id = 2, Name = "Hourly" },
+                    new { Id = 3, Name = "Minutely" },
+                    new { Id = 4, Name = "Monthly" },
+                    new { Id = 5, Name = "Weekly" },
+                    new { Id = 6, Name = "Yearly" }
                 }
                 , "Id", "Name", "1");
 
@@ -67,12 +81,15 @@ namespace HangfirePOC.Controllers
                 {
                     case 1:
                         description = "Set to run instantly";
+                        var id = BackgroundJob.Enqueue(() => Thread.Sleep(5000));
                         break;
                     case 2:
                         description = string.Format("Set to run after {0} minutes", newSchedule.DelayValue);
+                        BackgroundJob.Schedule(() => Thread.Sleep(5000), TimeSpan.FromMinutes(newSchedule.DelayValue)); 
                         break;
                     case 3:
                         description = "Set to run on intervals";
+                        RecurringJob.AddOrUpdate(() => Thread.Sleep(5000), GetCronFromRecurringType(newSchedule.RecurringScheduleType));
                         break;
                 }
 
@@ -86,6 +103,27 @@ namespace HangfirePOC.Controllers
             }
 
             return View(newSchedule);
+        }
+
+        private Func<string> GetCronFromRecurringType(int recurringSchedule)
+        {
+            switch (recurringSchedule)
+            {
+                case 1:
+                    return Cron.Daily;
+                case 2:
+                    return Cron.Hourly;
+                case 3:
+                    return Cron.Minutely;
+                case 4:
+                    return Cron.Monthly;
+                case 5:
+                    return Cron.Weekly;
+                case 6:
+                    return Cron.Yearly;
+                default:
+                    return Cron.Daily;
+            }
         }
     }
 }

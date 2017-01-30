@@ -7,6 +7,25 @@
 {
     @Html.AntiForgeryToken()
 
+    @section scripts{
+        <script type="text/javascript">
+$(function () {
+    $('#RunType').change(function () {
+        var value = $(this).val();
+        if (value == '2') {
+            $('#delaySettings').show();
+        } else {
+            $('#delaySettings').hide();
+        }
+
+        if (value == '3') {
+            $('#recurSettings').show();
+        } else {
+            $('#recurSettings').hide();
+        }
+    });
+});</script>}
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -23,13 +42,19 @@
                 @Html.DropDownListFor(model => model.RunType, (IEnumerable<SelectListItem>)ViewBag.NowOrDelay, new { @class = "form-control" })
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="delaySettings" style="display:none">
             <div class="control-label col-md-2">Delay by </div>
             <div class="col-md-1">
-                @Html.TextBoxFor(model => model.DelayValue, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.DelayValue, new { @class = "form-control", @Value = "2" })
             </div>
             <div class="col-md-9">
                 minutes
+            </div>
+        </div>
+        <div class="form-group" id="recurSettings" style="display:none">
+            <div class="control-label col-md-2">Recurring Schedule </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RecurringScheduleType, (IEnumerable<SelectListItem>)ViewBag.RecurringScheduleType, new { @class = "form-control" })
             </div>
         </div>
 

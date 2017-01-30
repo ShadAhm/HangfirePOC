@@ -28,5 +28,7 @@ namespace HangfirePOC.Model
         public string Description { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public int RecurringScheduleType { get; set; }
     }
 }
