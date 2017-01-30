@@ -28,7 +28,7 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.ActionLink("Schedule", "Edit", new { id = item.ID }) 
+                        @Html.ActionLink("Schedule", "Create", "Schedule", new { activityId = item.ID}, null)
                     </td>
                 </tr>
             }

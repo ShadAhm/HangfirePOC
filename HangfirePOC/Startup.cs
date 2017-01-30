@@ -9,8 +9,6 @@ namespace HangfirePOC
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
-
             GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireDB");
 
             app.UseHangfireDashboard();

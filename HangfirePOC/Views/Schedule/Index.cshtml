@@ -2,8 +2,49 @@
     ViewBag.Title = "Schedule Activities";
 }
 
+@model IEnumerable<HangfirePOC.Model.ActivitySchedule>
+
 <div class="row">
     <div class="col-md-12">
-        <h2>Schedule Activities</h2>
+        <h2>Activity Schedules</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Schedule ID
+                </th>
+                <th>
+                    Activity
+                </th>
+                <th>
+                    Created On
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activity.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td style="min-width:40%">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+
+        </table>
     </div>
 </div>

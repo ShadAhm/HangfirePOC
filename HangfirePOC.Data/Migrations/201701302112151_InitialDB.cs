@@ -12,6 +12,7 @@ namespace HangfirePOC.Data.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -20,13 +21,17 @@ namespace HangfirePOC.Data.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        OptimizationRequestID = c.Int(nullable: false),
+                        OptimizationRequestID = c.Int(),
                         ActivityID = c.Int(nullable: false),
                         Name = c.String(),
+                        RunType = c.Int(nullable: false),
+                        DelayValue = c.Int(nullable: false),
+                        Description = c.String(),
+                        CreatedOn = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Activities", t => t.ActivityID, cascadeDelete: true)
-                .ForeignKey("dbo.OptimizationRequests", t => t.OptimizationRequestID, cascadeDelete: true)
+                .ForeignKey("dbo.OptimizationRequests", t => t.OptimizationRequestID)
                 .Index(t => t.OptimizationRequestID)
                 .Index(t => t.ActivityID);
             
