@@ -52,7 +52,7 @@ $(function () {
                 @Html.TextBoxFor(model => model.DelayValue, new { @class = "form-control", @Value = "2" })
             </div>
             <div class="col-md-9">
-                minutes
+                @Html.DropDownListFor(model => model.DelayType, (IEnumerable<SelectListItem>)ViewBag.DelayType, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group" id="recurSettings" style="display:none">

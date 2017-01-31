@@ -25,10 +25,14 @@ namespace HangfirePOC.Model
 
         public int DelayValue { get; set; }
 
+        public int DelayType { get; set; } // 1 seconds 2 minutes 3 days
+
         public string Description { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
         public int RecurringScheduleType { get; set; }
+
+        public DateTime? LastRun { get; set; }
     }
 }

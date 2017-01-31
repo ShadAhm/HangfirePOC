@@ -50,13 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201701302112151_InitialDB.cs" />
-    <Compile Include="Migrations\201701302112151_InitialDB.Designer.cs">
-      <DependentUpon>201701302112151_InitialDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701302201124_RecurringScheduleType.cs" />
-    <Compile Include="Migrations\201701302201124_RecurringScheduleType.Designer.cs">
-      <DependentUpon>201701302201124_RecurringScheduleType.cs</DependentUpon>
+    <Compile Include="Migrations\201701310311531_Initial.cs" />
+    <Compile Include="Migrations\201701310311531_Initial.Designer.cs">
+      <DependentUpon>201701310311531_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\OptimizationRequestRepository.cs" />
@@ -80,11 +76,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701302112151_InitialDB.resx">
-      <DependentUpon>201701302112151_InitialDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701302201124_RecurringScheduleType.resx">
-      <DependentUpon>201701302201124_RecurringScheduleType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701310311531_Initial.resx">
+      <DependentUpon>201701310311531_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

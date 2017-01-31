@@ -3,7 +3,7 @@ namespace HangfirePOC.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialDB : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -26,8 +26,11 @@ namespace HangfirePOC.Data.Migrations
                         Name = c.String(),
                         RunType = c.Int(nullable: false),
                         DelayValue = c.Int(nullable: false),
+                        DelayType = c.Int(nullable: false),
                         Description = c.String(),
                         CreatedOn = c.DateTime(nullable: false),
+                        RecurringScheduleType = c.Int(nullable: false),
+                        LastRun = c.DateTime(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Activities", t => t.ActivityID, cascadeDelete: true)

@@ -81,15 +81,12 @@ namespace HangfirePOC.Controllers
                 {
                     case 1:
                         description = "Set to run instantly";
-                        var id = BackgroundJob.Enqueue(() => Thread.Sleep(5000));
                         break;
                     case 2:
-                        description = string.Format("Set to run after {0} minutes", newSchedule.DelayValue);
-                        BackgroundJob.Schedule(() => Thread.Sleep(5000), TimeSpan.FromMinutes(newSchedule.DelayValue)); 
+                        description = string.Format("Set to run after {0} {1}", newSchedule.DelayValue, newSchedule.DelayType == 1 ? "seconds" : newSchedule.DelayType == 2 ? "minutes" : "days");
                         break;
                     case 3:
                         description = "Set to run on intervals";
-                        RecurringJob.AddOrUpdate(() => Thread.Sleep(5000), GetCronFromRecurringType(newSchedule.RecurringScheduleType));
                         break;
                 }
 
@@ -99,10 +96,53 @@ namespace HangfirePOC.Controllers
                 _uof.ActivityScheduleRepo.Add(newSchedule);
                 _uof.SaveChanges();
 
+                switch (newSchedule.RunType)
+                {
+                    case 1:
+                        FireAndForgetJob(newSchedule.ID);
+                        break;
+                    case 2:
+                        ScheduleDelayedJobs(newSchedule.DelayValue, newSchedule.DelayType);
+                        break;
+                    case 3:
+                        ScheduleRecurringJob(newSchedule.RecurringScheduleType);
+                        break;
+                }
+
                 return RedirectToAction("Index");
             }
 
             return View(newSchedule);
+        }
+
+        private void ScheduleDelayedJobs(int delayUnit, int delayType)
+        {
+            TimeSpan ts = TimeSpan.FromSeconds(delayUnit); 
+
+            switch(delayType)
+            {
+                case 2: ts = TimeSpan.FromMinutes(delayUnit);
+                    break;
+                case 3: ts = TimeSpan.FromDays(delayUnit);
+                    break; 
+            }
+
+            BackgroundJob.Schedule(() => Thread.Sleep(5000), ts);
+        }
+
+        private void ScheduleRecurringJob(int recurringScheduleType)
+        {
+            RecurringJob.AddOrUpdate(() => Thread.Sleep(5000)
+            
+            , GetCronFromRecurringType(recurringScheduleType));
+        }
+
+        private void FireAndForgetJob(int scheduleId)
+        {
+            var id = BackgroundJob.Enqueue(() => 
+                Thread.Sleep(5000)
+            
+            );
         }
 
         private Func<string> GetCronFromRecurringType(int recurringSchedule)
