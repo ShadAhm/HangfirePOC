@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Hangfire POC";
+    ViewBag.Title = "Activities";
 }
 
 @model IEnumerable<HangfirePOC.Model.Activity>
@@ -7,6 +7,10 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Activities</h2>
+        <p>
+            @Html.ActionLink("Create New Activity", "Create")
+        </p>
+
         <table class="table">
             <tr>
                 <th>
