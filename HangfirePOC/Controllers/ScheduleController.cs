@@ -35,7 +35,7 @@ namespace HangfirePOC.Controllers
                 {
                     new { Id = 1, Name = "Now" },
                     new { Id = 2, Name = "Later" },
-                    new { Id = 3, Name = "By intevals" }
+                    new { Id = 3, Name = "By intervals" }
                 }
                 , "Id", "Name", "1");
 
