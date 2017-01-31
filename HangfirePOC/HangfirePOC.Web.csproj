@@ -53,6 +53,10 @@
       <HintPath>..\packages\Autofac.Mvc5.4.0.0\lib\net451\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Hangfire.Autofac, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Autofac.2.2.0\lib\net45\Hangfire.Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Hangfire.Core, Version=1.6.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.Core.1.6.8\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
@@ -280,6 +284,10 @@
     <ProjectReference Include="..\HangfirePOC.Model\HangfirePOC.Model.csproj">
       <Project>{393af310-0750-4527-96f9-edd0c595bfae}</Project>
       <Name>HangfirePOC.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HangfirePOC.Service\HangfirePOC.Service.csproj">
+      <Project>{895FA43F-CBDF-487A-8867-E9BC2306819F}</Project>
+      <Name>HangfirePOC.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using HangfirePOC.Data;
+using HangfirePOC.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace HangfirePOC.Web.App_Start
             var uof = new UnitOfWork();
 
             builder.RegisterInstance(uof).As<IUnitOfWork>();
-            // builder.RegisterInstance(new OptimizationEngine.OptimizationEngine(uof)).As<IOptimizationEngine>();
+            builder.RegisterInstance(new ActivityService(uof)).As<IActivityService>();
 
             // Register your MVC controllers.
             builder.RegisterControllers(typeof(MvcApplication).Assembly);

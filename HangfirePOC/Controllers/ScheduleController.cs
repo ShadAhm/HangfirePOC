@@ -1,6 +1,7 @@
 ﻿using Hangfire;
 using HangfirePOC.Data;
 using HangfirePOC.Model;
+using HangfirePOC.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,15 @@ namespace HangfirePOC.Controllers
     public class ScheduleController : Controller
     {
         private IUnitOfWork _uof;
+        private IActivityService _activityService; 
 
-        public ScheduleController(IUnitOfWork uof)
+        public ScheduleController(IUnitOfWork uof, IActivityService activityService)
         {
             _uof = uof;
+            _activityService = activityService;
         }
 
+        [OutputCache(Duration = 0)]
         public ActionResult Index()
         {
             var schedules = _uof.ActivityScheduleRepo.FindAll();
@@ -80,7 +84,7 @@ namespace HangfirePOC.Controllers
                 switch (newSchedule.RunType)
                 {
                     case 1:
-                        description = "Set to run instantly";
+                        description = "Set to run immediately";
                         break;
                     case 2:
                         description = string.Format("Set to run after {0} {1}", newSchedule.DelayValue, newSchedule.DelayType == 1 ? "seconds" : newSchedule.DelayType == 2 ? "minutes" : "days");
@@ -102,10 +106,10 @@ namespace HangfirePOC.Controllers
                         FireAndForgetJob(newSchedule.ID);
                         break;
                     case 2:
-                        ScheduleDelayedJobs(newSchedule.DelayValue, newSchedule.DelayType);
+                        ScheduleDelayedJobs(newSchedule.ID, newSchedule.DelayValue, newSchedule.DelayType);
                         break;
                     case 3:
-                        ScheduleRecurringJob(newSchedule.RecurringScheduleType);
+                        ScheduleRecurringJob(newSchedule.ID, newSchedule.RecurringScheduleType);
                         break;
                 }
 
@@ -115,7 +119,7 @@ namespace HangfirePOC.Controllers
             return View(newSchedule);
         }
 
-        private void ScheduleDelayedJobs(int delayUnit, int delayType)
+        private void ScheduleDelayedJobs(int scheduleId, int delayUnit, int delayType)
         {
             TimeSpan ts = TimeSpan.FromSeconds(delayUnit); 
 
@@ -127,22 +131,18 @@ namespace HangfirePOC.Controllers
                     break; 
             }
 
-            BackgroundJob.Schedule(() => Thread.Sleep(5000), ts);
+            BackgroundJob.Schedule(() => _activityService.RunActivity(scheduleId), ts);
         }
 
-        private void ScheduleRecurringJob(int recurringScheduleType)
+        private void ScheduleRecurringJob(int scheduleId, int recurringScheduleType)
         {
-            RecurringJob.AddOrUpdate(() => Thread.Sleep(5000)
-            
+            RecurringJob.AddOrUpdate(() => _activityService.RunActivity(scheduleId)
             , GetCronFromRecurringType(recurringScheduleType));
         }
 
         private void FireAndForgetJob(int scheduleId)
         {
-            var id = BackgroundJob.Enqueue(() => 
-                Thread.Sleep(5000)
-            
-            );
+            var id = BackgroundJob.Enqueue(() => _activityService.RunActivity(scheduleId));
         }
 
         private Func<string> GetCronFromRecurringType(int recurringSchedule)

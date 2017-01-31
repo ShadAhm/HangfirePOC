@@ -23,6 +23,9 @@
                     Created On
                 </th>
                 <th>
+                    Last Run
+                </th>
+                <th>
                     Description
                 </th>
             </tr>
@@ -38,6 +41,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastRun)
                     </td>
                     <td style="min-width:40%">
                         @Html.DisplayFor(modelItem => item.Description)
