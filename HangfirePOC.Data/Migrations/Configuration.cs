@@ -19,19 +19,12 @@ namespace HangfirePOC.Data.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
 
-            context.Activities.AddOrUpdate(
-                    new Model.Activity { Name = "Activity 1" },
-                    new Model.Activity {  Name = "Activity 2"},
-                    new Model.Activity {  Name = "Activity 3"}
-                );
+            //context.Activities.AddOrUpdate(
+            //        new Model.Activity { Name = "Activity 1" },
+            //        new Model.Activity {  Name = "Activity 2"},
+            //        new Model.Activity {  Name = "Activity 3"}
+            //    );
         }
     }
 }
