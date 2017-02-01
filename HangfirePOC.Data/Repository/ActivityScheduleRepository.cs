@@ -14,16 +14,6 @@ namespace HangfirePOC.Data.Repository
             public ActivityScheduleRepository(HangfirePOC.Data.EDM.ActivitiesDB dbContext)
             {
                 _dbContext = dbContext;
-                if (_dbContext.ActivitiySchedules.Count() == 0)
-                {
-                    AddRange(GetMockActivityScheduleData());
-                    _dbContext.SaveChanges();
-                }
-            }
-
-            private List<ActivitySchedule> GetMockActivityScheduleData()
-            {
-                return new List<ActivitySchedule>() {};
             }
 
             public void Add(ActivitySchedule newEntity)
@@ -38,7 +28,7 @@ namespace HangfirePOC.Data.Repository
 
             public List<ActivitySchedule> FindAll()
             {
-                return _dbContext.ActivitiySchedules.ToList();
+                return _dbContext.ActivitiySchedules.AsNoTracking().ToList();
             }
 
             public void Remove(ActivitySchedule entity)
