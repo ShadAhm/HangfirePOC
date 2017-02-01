@@ -32,7 +32,9 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.ActionLink("Schedule", "Create", "Schedule", new { activityId = item.ID}, null)
+                        <a href="@Url.Action("Create", "Schedule", new { activityId = item.ID}, null)" class="btn btn-sm btn-primary">
+                            Schedule New
+                        </a>
                     </td>
                 </tr>
             }
