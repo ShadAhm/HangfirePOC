@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Activity Schedules";
+}
+
+@model HangfirePOC.Model.ActivitySchedule
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>@Model.Activity.Name <small>Schedule #@Model.ID</small></h2>
+
+        <p>
+            <label>Activity Name : </label> @Model.Activity.Name<br/>
+            <label>Activity ID : </label> @Model.Activity.ID<br />
+            <label>Schedule ID : </label> @Model.ID<br />
+            <label>Created On : </label> @Model.CreatedOn<br />
+            <label>Last Run : </label> @Model.LastRun
+        </p>
+
+        <h3>Run Dates</h3>
+        <table class="table">
+            @foreach (var item in Model.ActivityScheduleLines)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ScheduleDate)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

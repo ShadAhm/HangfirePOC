@@ -13,7 +13,7 @@ namespace HangfirePOC.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201701310311531_Initial"; }
+            get { return "201702011629217_Initial"; }
         }
         
         string IMigrationMetadata.Source

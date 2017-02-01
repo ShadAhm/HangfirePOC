@@ -10,17 +10,14 @@ namespace HangfirePOC.Model
 {
     public class ActivitySchedule
     {
-        [ForeignKey("OptimizationRequest")]
-        public int? OptimizationRequestID { get; set; }
-
         [ForeignKey("Activity")]
         public int ActivityID { get; set; }
         [Display(Name = "Activity Name")]
         public string Name { get; set; }    
         [Key]
         public int ID { get; set; }
-        public virtual OptimizationRequest OptimizationRequest { get; set; }
         public virtual Activity Activity { get; set; }
+
         public int RunType { get; set; } // 1 now 2 delay 3 interval
 
         public int DelayValue { get; set; }
@@ -34,5 +31,7 @@ namespace HangfirePOC.Model
         public int RecurringScheduleType { get; set; }
 
         public DateTime? LastRun { get; set; }
+
+        public virtual List<ActivityScheduleLine> ActivityScheduleLines { get; set; }
     }
 }

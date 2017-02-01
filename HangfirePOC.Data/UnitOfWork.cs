@@ -11,6 +11,7 @@ namespace HangfirePOC.Data
     public interface IUnitOfWork
     {
         IRepository<ActivitySchedule> ActivityScheduleRepo { get; }
+        IRepository<ActivityScheduleLine> ActivityScheduleLineRepo { get; }
         IRepository<Activity> ActivityRepo { get; }
 
         void SaveChanges();
@@ -19,6 +20,7 @@ namespace HangfirePOC.Data
     public class UnitOfWork : IUnitOfWork
     {
         private IRepository<ActivitySchedule> _activityScheduleRepo;
+        private IRepository<ActivityScheduleLine> _activityScheduleLineRepo;
         private IRepository<Activity> _activityRepo;
 
         private EDM.ActivitiesDB _dbContext;
@@ -27,6 +29,7 @@ namespace HangfirePOC.Data
         {
             _dbContext = new EDM.ActivitiesDB();
             _activityScheduleRepo = new ActivityScheduleRepository(_dbContext);
+            _activityScheduleLineRepo = new ActivityScheduleLineRepository(_dbContext);
             _activityRepo = new ActivityRepository(_dbContext);
         }
 
@@ -35,6 +38,14 @@ namespace HangfirePOC.Data
             get
             {
                 return _activityScheduleRepo;
+            }
+        }
+
+        public IRepository<ActivityScheduleLine> ActivityScheduleLineRepo
+        {
+            get
+            {
+                return _activityScheduleLineRepo;
             }
         }
 

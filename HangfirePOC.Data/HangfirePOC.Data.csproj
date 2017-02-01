@@ -50,12 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201701310311531_Initial.cs" />
-    <Compile Include="Migrations\201701310311531_Initial.Designer.cs">
-      <DependentUpon>201701310311531_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201702011629217_Initial.cs" />
+    <Compile Include="Migrations\201702011629217_Initial.Designer.cs">
+      <DependentUpon>201702011629217_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repository\OptimizationRequestRepository.cs" />
+    <Compile Include="Repository\ActivityScheduleLineRepository.cs" />
     <Compile Include="Repository\ActivityRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="EDM\ActivitiesDB.cs" />
@@ -76,8 +76,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701310311531_Initial.resx">
-      <DependentUpon>201701310311531_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702011629217_Initial.resx">
+      <DependentUpon>201702011629217_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

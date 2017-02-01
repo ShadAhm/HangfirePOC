@@ -21,7 +21,6 @@ namespace HangfirePOC.Data.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        OptimizationRequestID = c.Int(),
                         ActivityID = c.Int(nullable: false),
                         Name = c.String(),
                         RunType = c.Int(nullable: false),
@@ -34,30 +33,32 @@ namespace HangfirePOC.Data.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Activities", t => t.ActivityID, cascadeDelete: true)
-                .ForeignKey("dbo.OptimizationRequests", t => t.OptimizationRequestID)
-                .Index(t => t.OptimizationRequestID)
                 .Index(t => t.ActivityID);
             
             CreateTable(
-                "dbo.OptimizationRequests",
+                "dbo.ActivityScheduleLines",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         RequestDate = c.DateTime(nullable: false),
                         ScheduleDate = c.DateTime(nullable: false),
                         Status = c.Int(nullable: false),
+                        ActivityScheduleID = c.Int(nullable: false),
+                        ScheduleLineId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ActivitySchedules", t => t.ActivityScheduleID, cascadeDelete: true)
+                .Index(t => t.ActivityScheduleID);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.ActivitySchedules", "OptimizationRequestID", "dbo.OptimizationRequests");
+            DropForeignKey("dbo.ActivityScheduleLines", "ActivityScheduleID", "dbo.ActivitySchedules");
             DropForeignKey("dbo.ActivitySchedules", "ActivityID", "dbo.Activities");
+            DropIndex("dbo.ActivityScheduleLines", new[] { "ActivityScheduleID" });
             DropIndex("dbo.ActivitySchedules", new[] { "ActivityID" });
-            DropIndex("dbo.ActivitySchedules", new[] { "OptimizationRequestID" });
-            DropTable("dbo.OptimizationRequests");
+            DropTable("dbo.ActivityScheduleLines");
             DropTable("dbo.ActivitySchedules");
             DropTable("dbo.Activities");
         }

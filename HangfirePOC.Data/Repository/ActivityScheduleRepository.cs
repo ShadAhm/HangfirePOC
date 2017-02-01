@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity; 
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,7 +43,7 @@ namespace HangfirePOC.Data.Repository
 
             public ActivitySchedule FindByID(int id)
             {
-                var results = _dbContext.ActivitiySchedules.Where(d => d.ID == id);
+                var results = _dbContext.ActivitiySchedules.Include(x => x.ActivityScheduleLines).Where(d => d.ID == id);
 
                 return results.FirstOrDefault();
             }

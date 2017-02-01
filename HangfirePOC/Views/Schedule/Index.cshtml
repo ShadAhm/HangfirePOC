@@ -34,7 +34,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ID)
+                        @Html.ActionLink("#" + item.ID.ToString(), "Detail", new { id = item.ID })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Activity.Name)

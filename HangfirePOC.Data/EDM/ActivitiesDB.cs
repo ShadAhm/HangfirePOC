@@ -16,7 +16,7 @@ namespace HangfirePOC.Data.EDM
 
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivitySchedule> ActivitiySchedules { get; set; }
-        public virtual DbSet<OptimizationRequest> OptimizationRequests { get; set; }
+        public virtual DbSet<ActivityScheduleLine> ActivityScheduleLines { get; set; }
 
     }
 }

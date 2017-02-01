@@ -30,6 +30,13 @@ namespace HangfirePOC.Controllers
             return View(schedules);
         }
 
+        public ActionResult Detail(int id)
+        {
+            var schedule = _uof.ActivityScheduleRepo.FindByID(id);
+
+            return View("Detail", schedule); 
+        }
+
         public ActionResult Create(string activityId)
         {
             int activityIdInt = 0;
@@ -131,12 +138,12 @@ namespace HangfirePOC.Controllers
                     break; 
             }
 
-            BackgroundJob.Schedule(() => _activityService.RunActivity(scheduleId), ts);
+            BackgroundJob.Schedule(() => _activityService.RunDelayedActivity(scheduleId), ts);
         }
 
         private void ScheduleRecurringJob(int scheduleId, int recurringScheduleType)
         {
-            RecurringJob.AddOrUpdate(() => _activityService.RunActivity(scheduleId)
+            RecurringJob.AddOrUpdate(() => _activityService.RunRecurringActivity(scheduleId)
             , GetCronFromRecurringType(recurringScheduleType));
         }
 
