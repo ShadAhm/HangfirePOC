@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HangfirePOC.Data
 {
+// starting to doubt repository pattern with EF
     public interface IRepository<T>
     {
         void Add(T newEntity);
